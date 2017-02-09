@@ -1,16 +1,13 @@
 import request from 'request-promise'
 
-const MOVIE_API_HOST = '192.168.38.99';
-const MOVIE_API_PORT = '3000';
-
-const host = process.env.MOVIES_API_HOST || 'localhost';
-const port = process.env.MOVIES_API_PORT || '3000';
+const host = 'mdb.vm.com';
+const port = '80';
 
 /**
  * Build url from parts
  */
 function url(endpoint) {
-    return 'http://' + MOVIE_API_HOST + ':' + MOVIE_API_PORT + endpoint;
+    return 'http://' + host + ':' + port + '/api' + endpoint;
 }
 
 /**
@@ -37,15 +34,24 @@ class MoviesApi {
             rq.qs.genre_ids = genres.join(',');
         }
 
-        return request(rq);
+        return request(rq)
+                .then(function(result) {
+                    return result.data;
+                });
     }
 
     static moviesRead(id) {
-        return request(requestFactory('/movies/' + id));
+        return request(requestFactory('/movies/' + id))
+                .then(function(result) {
+                    return result.data;
+                });;
     }
 
     static actorsList() {
-        return request(requestFactory('/actors'));
+        return request(requestFactory('/actors'))
+                .then(function(result) {
+                    return result.data;
+                });
     }
 
     static actorsRead(id) {
