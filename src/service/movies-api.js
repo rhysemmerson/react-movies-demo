@@ -1,13 +1,11 @@
 import request from 'request-promise'
-
-const host = 'mdb.vm.com';
-const port = '80';
+import {API_HOST, API_PORT} from '../constants'
 
 /**
  * Build url from parts
  */
 function url(endpoint) {
-    return 'http://' + host + ':' + port + '/api' + endpoint;
+    return 'http://' + API_HOST + ':' + API_PORT + '/api' + endpoint;
 }
 
 /**
